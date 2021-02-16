@@ -5,9 +5,7 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -32,7 +30,7 @@ public class User {
     @AssertTrue
     private Boolean agreement;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Contact> contactList;
+    private List<Contact> contact;
 
     private String role;
 
@@ -41,7 +39,7 @@ public class User {
     }
 
     public User(String name, String email, String password, String mobileNo, String dateOfBirth,
-                String city, Boolean agreement, List<Contact> contactList, String role) {
+                String city, Boolean agreement, List<Contact> contact, String role) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -49,7 +47,7 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.city = city;
         this.agreement = agreement;
-        this.contactList = contactList;
+        this.contact = contact;
         this.role = role;
     }
 
@@ -61,7 +59,7 @@ public class User {
         this.dateOfBirth = user.getDateOfBirth();
         this.city = user.getCity();
         this.agreement = user.getAgreement();
-        this.contactList = user.getContactList();
+        this.contact = user.getContact();
         this.role = user.getRole();
     }
 
@@ -85,16 +83,16 @@ public class User {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getMobileNo() {
@@ -129,12 +127,12 @@ public class User {
         this.agreement = agreement;
     }
 
-    public List<Contact> getContactList() {
-        return contactList;
+    public List<Contact> getContact() {
+        return contact;
     }
 
-    public void setContactList(List<Contact> contactList) {
-        this.contactList = contactList;
+    public void setContact(List<Contact> contact) {
+        this.contact = contact;
     }
 
     public String getRole() {
@@ -144,5 +142,4 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-
 }

@@ -4,12 +4,8 @@ import com.virus.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.stream.Collectors;
-
 
 public class CustomUserDetails extends User implements UserDetails {
 
@@ -19,9 +15,7 @@ public class CustomUserDetails extends User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(super.getRole().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        return Arrays.asList(new SimpleGrantedAuthority(super.getRole()));
     }
 
     @Override

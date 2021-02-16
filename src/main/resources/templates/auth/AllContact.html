@@ -1,0 +1,59 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Contacts</title>
+    <link rel="icon" th:href="@{/images/phone-book.png}" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/main.js}"></script>
+</head>
+<body>
+<div class="sidenav">
+    <a th:href="@{/auth/}" th:text="'Hi, '+${user.name}"></a>
+    <br><br>
+    <a th:href="@{/auth/AddContact}">Add Contact</a>
+    <a th:href="@{/auth/AllContact}">View Contact</a>
+    <a th:href="@{/auth/Settings}">Settings</a>
+    <a th:href="@{/logout}">Logout</a>
+</div>
+<h2 class="text-center mt-4 font-weight-bold">Contact List</h2>
+
+<div class="container col-md-9 offset-md-2">
+<table class="table table-dark mt-4 ml-4">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Mobile Number</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody th:each="c : ${contacts}" >
+    <tr>
+        <th th:text="${c.cid}" scope="row">1</th>
+        <td th:text="${c.cname}">Mark</td>
+        <td th:text="${c.cmobileNo}">Otto</td>
+        <td>
+            <form th:action="@{'/auth/update/'+${c.cid}}" class="mb-2" method="post">
+                <button type="submit" class="btn btn-secondary btn-sm">Update</button>
+            </form>
+
+            <a th:href="@{'/auth/delete/'+${c.cid}}" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

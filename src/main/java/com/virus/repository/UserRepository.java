@@ -2,9 +2,10 @@ package com.virus.repository;
 
 import com.virus.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User,Integer> {
 
-    Optional<User> getUserByName(final String username);
+public interface UserRepository extends JpaRepository<User, Integer> {
+    User getUserByEmail(String email);
+    User getAllByEmail(String email);
+    Boolean existsByEmail(String Email);
 }

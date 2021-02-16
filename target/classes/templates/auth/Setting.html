@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Setting</title>
+    <link rel="icon" th:href="@{/images/phone-book.png}" type="image/x-icon">
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="sidenav">
+    <a th:href="@{/auth/}" th:text="'Hi, '+${user.name}"></a>
+    <br><br>
+    <a th:href="@{/auth/AddContact}">Add Contact</a>
+    <a th:href="@{/auth/AllContact}">View Contact</a>
+    <a th:href="@{/auth/Settings}">Settings</a>
+    <a th:href="@{/logout}">Logout</a>
+</div>
+
+<h2 class="text-center font-weight-bold pt-4">Update Profile</h2>
+<div class="container col-md-6 offset-md-3  pt-4">
+
+    <div class="container col-md-10 offset-md-1  pt-4">
+
+        <form th:action="@{/auth/UpdateProfile}" method="post">
+            <input type="hidden" th:value="${user.id}" name="id">
+            <div class="form-group">
+                <label for="name">Name:</label> <input type="text"
+                                                       class="form-control" name="name" placeholder="Enter name"
+                                                       id="name"
+                                                       th:value="${user.name}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address:</label> <input type="email"
+                                                                 class="form-control" name="email"
+                                                                 placeholder="Enter email"
+                                                                 id="email"
+                                                                 th:value="${user.email}"
+                                                                 required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label> <input type="password"
+                                                               class="form-control" name="email"
+                                                               placeholder="Enter password"
+                                                               id="password"
+                                                               th:value="${user.password}"
+                                                               disabled>
+            </div>
+
+            <!-- Button to Open the Modal -->
+            <a style="cursor: pointer; color: blue" data-toggle="modal" data-target="#myModal">Change Password</a>
+
+            <!-- The Modal -->
+            <div class="fade modal" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Change Password</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form th:action="@{/auth/Change_Password}" method="post">
+                                <div class="form-group">
+                                    <input type="hidden" th:value="${user.id}" name="id">
+                                    <label for="Current Password">Current Password:</label> <input type="password"
+                                                                                                   class="form-control"
+                                                                                                   name="currentPassword"
+                                                                                                   placeholder="Enter Current Password"
+                                                                                                   id="Current Password"
+                                                                                                   required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="New Password">New Password</label> <input type="password"
+                                                                                          class="form-control"
+                                                                                          name="password"
+                                                                                          placeholder="Enter New Password"
+                                                                                          id="New Password"
+                                                                                          required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="button" class="btn btn-danger m-3" data-dismiss="modal">Close</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group mt-3">
+                <label for="mob">Mobile No:</label> <input type="text"
+                                                           class="form-control" name="mobileNo"
+                                                           placeholder="Enter Mobile No"
+                                                           id="mob" th:value="${user.mobileNo}"
+                                                           required>
+            </div>
+            <div class="form-group">
+                <label for="date">Date of birth:</label> <input type="date"
+                                                                class="form-control" name="dateOfBirth"
+                                                                placeholder="Enter email"
+                                                                id="date"
+                                                                th:value="${user.dateOfBirth}"
+                                                                required>
+            </div>
+            <div class="form-group">
+                <label for="city">City:</label> <input type="text"
+                                                       class="form-control" name="city" placeholder="Enter city"
+                                                       id="city"
+                                                       th:value="${user.city}" required>
+            </div>
+            <button type="submit" class="btn btn-primary ">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

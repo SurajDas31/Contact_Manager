@@ -3,6 +3,7 @@ package com.virus.controller;
 import com.virus.entity.User;
 import com.virus.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,10 +41,15 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/form-register", method = RequestMethod.POST)
-    public String formRegister(@ModelAttribute("formData") User user) {
-        user.setRole("USER");
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+    public String formRegister(@ModelAttribute("formData") User user, @Param("email") String email, Model model) {
+        if (userRepository.existsByEmail(email)) {
+            model.addAttribute("existingUser");
+            return "SignUp";
+        } else {
+            user.setRole("ROLE_USER");
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        }
         return "Login";
     }
 
@@ -52,4 +58,10 @@ public class HomeController {
         model.addAttribute("formData", new User());
         return "SignUp";
     }
+
+    /* @RequestMapping("/error")
+     public String error() {
+         return "Error";
+     }*/
+
 }
